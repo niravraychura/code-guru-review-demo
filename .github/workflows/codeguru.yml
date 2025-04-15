@@ -1,4 +1,4 @@
-name: Python Code Review with Amazon CodeGuru Reviewer
+name: Amazon CodeGuru Reviewer (Python - S3 ZIP Upload)
 
 on:
   pull_request:
@@ -6,32 +6,32 @@ on:
 
 jobs:
   codeguru-review:
-    name: CodeGuru Reviewer Python Job
+    name: Run CodeGuru Reviewer (Python)
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout source code
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
 
-      - name: Install dependencies (optional)
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || true
+    - name: Install dependencies (optional)
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt || true
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
-      - name: Run Amazon CodeGuru Reviewer
-        uses: aws-actions/codeguru-reviewer@v1.1
-        with:
-          s3_bucket: codeguru-reviewer-demo-raychuranirav-us
-          build_path: .  # Assuming demo-app.py is in the root directory
+    - name: Run Amazon CodeGuru Reviewer
+      uses: aws-actions/codeguru-reviewer@v1.1
+      with:
+        s3_bucket: codeguru-reviewer-demo-raychuranirav-us
+        build_path: .
