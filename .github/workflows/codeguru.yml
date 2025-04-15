@@ -22,7 +22,7 @@ jobs:
     - name: Run Amazon CodeGuru Reviewer
       uses: aws-actions/codeguru-reviewer@v1.1
       with:
-        s3_bucket: code-guru-reviewer-demo-bucket
+        s3_bucket: codeguru-reviewer-demo-raychuranirav
         build_path: ./target
 
     - name: Upload results to GitHub Security tab
